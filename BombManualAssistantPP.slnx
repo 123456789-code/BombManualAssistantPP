@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="BombManualAssistantPP.vcxproj" Id="0a631794-3247-4c90-b77c-789609d4092f" />
+</Solution>
