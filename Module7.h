@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include "mytool.h"
 
-using std::string, std::string_view, std::unordered_map, std::all_of;
+using std::string, std::string_view, std::unordered_map;
 using namespace mytool;
 
 class Module7 { // 摩斯电码

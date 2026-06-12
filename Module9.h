@@ -14,20 +14,11 @@ public:
 		bool flag = false;
 		while (true) {
 			print("请选择线路(123对应红蓝黑，0表示退出): ");
-			input(choice);
-			while (choice > 3 || choice < 0) {
-				print("线路应当是123之中一个，请重新输入: ");
-				input(choice);
-			}
+			input(choice, [](int v) { return v >= 0 && v <= 3; });
 			if (choice == 0) { break; }
 			printa("请按照左侧从上倒下的顺序输入当前颜色对应的字母(使用123代替ABC): ");
-			input(code);
+			input(code, [](string c) {return all_of(c.begin(), c.end(), [](char ch) { return ch >= '0' && ch <= '3'; }); });
 			for (char c : code) {
-				if (unsigned(c - '1') > 3) {
-					printa("字母应当在123中取，请你重新开始本模块");
-					flag = true;
-					break;
-				}
 				if (active[choice - 1] >= 9) {
 					printa("该线路已经没有更多的线了，请你小心");
 				}

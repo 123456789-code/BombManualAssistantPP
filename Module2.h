@@ -11,33 +11,33 @@ public:
 		printa("╔════════════════════════════════════════╗");
 		printa(format("║ {:^38} ║", "按钮模块操作指南"));
 		printa("╠══════════════════════════╦═════════════╣");
-		printa(format("║ {:<{}} ║ {:<{}} ║", "情况", left1, "操作", right1));
+		printf1("情况", "操作");
 		printa("╠══════════════════════════╬═════════════╣");
-		if (info.battery > 1) {
-			printa(format("║ {:<{}} ║ {:<{}} ║", "引爆", left1, "按下松开", right1));
-		}
-		printa(format("║ {:<{}} ║ {:<{}} ║", "白色, CAR", left1, "按住", right1));
-		if (info.battery > 2) {
-			printa(format("║ {:<{}} ║ {:<{}} ║", "FRK", left1, "按下松开", right1));
-		}
-		printa(format("║ {:<{}} ║ {:<{}} ║", "黄色", left1, "按住", right1));
-		printa(format("║ {:<{}} ║ {:<{}} ║", "红色, 按住", left1, "按下松开", right1));
-		printa(format("║ {:<{}} ║ {:<{}} ║", "否则", left1, "按住", right1));
+		if (info.battery > 1) { printf1("引爆", "按下松开"); }
+		printf1("白色, CAR", "按住");
+		if (info.battery > 2) { printf1("FRK", "按下松开"); }
+		printf1("黄色", "按住");
+		printf1("红色, 按住", "按下松开");
+		printf1("否则", "按住");
 		printa("╚══════════════════════════╩═════════════╝");
+
 		printa("松开时观察条的颜色，并根据下表操作:");
 		printa("╔══════════════════╦═════════════╗");
-		printa(format("║ {:<{}} ║ {:<{}} ║", "颜色", left2, "松开时数字", right2));
+		printf2("颜色", "松开时数字");
 		printa("╠══════════════════╬═════════════╣");
-		printa(format("║ {:<{}} ║ {:<{}} ║", "蓝色", left2, "4", right2));
-		printa(format("║ {:<{}} ║ {:<{}} ║", "白色", left2, "1", right2));
-		printa(format("║ {:<{}} ║ {:<{}} ║", "黄色", left2, "5", right2));
-		printa(format("║ {:<{}} ║ {:<{}} ║", "其他颜色", left2, "1", right2));
+		printf2("蓝色", "4");
+		printf2("白色", "1");
+		printf2("黄色", "5");
+		printf2("其他颜色", "1");
 		printa("╚══════════════════╩═════════════╝");
 	}
 
 private:
-	static constexpr int left1 = 24;
-	static constexpr int right1 = 11;
-	static constexpr int left2 = 16;
-	static constexpr int right2 = 11;
+	static constexpr void printf1(string&& msg1, string&& msg2) {
+		printa(format("║ {:<{}} ║ {:<{}} ║", msg1, 24, msg2, 11));
+	}
+
+	static constexpr void printf2(string&& msg1, string&& msg2) {
+		printa(format("║ {:<{}} ║ {:<{}} ║", msg1, 16, msg2, 11));
+	}
 };

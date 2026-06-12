@@ -35,6 +35,16 @@ namespace mytool {
 		return true;
 	}
 
+	template<typename T, typename Predicate>
+	bool input(T& value, Predicate pred) {
+		while (!(std::cin >> value && pred(value))) {
+			std::cin.clear();
+			std::cin.ignore(1024, '\n');
+			print("输入无效，请重新输入: ");
+		}
+		return true;
+	}
+
 	inline bool show_image(int resourceId, const char* title = "Image Display", int timeoutMs = 0) {
 		return ImageDisplay::showImage(resourceId, title, timeoutMs);
 	}

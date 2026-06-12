@@ -13,11 +13,7 @@ public:
 		vector<string_view> candidates(table.begin(), table.end());
 		for (int i = 0; i < 5 && candidates.size() > 1; i++) {
 			print("请按第", i + 1, "个位置的可能字母（6个小写字母，中间无空格）: ");
-			input(ch);
-			while (ch.size() != 6) {
-				print("应当是6个字母，请重新输入: ");
-				input(ch);
-			}
+			input(ch, [](string ch) { return ch.size() == 6 && all_of(ch.begin(), ch.end(), ::islower); });
 			bool valid_chars[26] = { false };
 			for (char c : ch) valid_chars[c - 'a'] = true;
 			candidates.erase(

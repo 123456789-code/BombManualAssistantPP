@@ -18,7 +18,7 @@
 using std::string, std::wstring, std::string_view;
 using namespace mytool;
 
-constexpr inline string_view version = "2.3.2";
+constexpr inline string_view version = "2.3.4";
 
 int main() {
 	SetConsoleOutputCP(65001);
@@ -91,20 +91,20 @@ int main() {
 			print("请选择模块: ");
 			input(module);
 			switch (module) {
-			case 0: { restart = true; break; }
-			case 1: { Module1::main(info); break; }
-			case 2: { Module2::main(info); break; }
-			case 3: { Module3::main(info); break; }
-			case 4: { Module4::main(info); break; }
-			case 5: { Module5::main(info); break; }
-			case 6: { Module6::main(info); break; }
-			case 7: { Module7::main(info); break; }
-			case 8: { Module8::main(info); break; }
-			case 9: { Module9::main(info); break; }
-			case 10: { Module10::main(info); break; }
-			case 11: { Module11::main(info); break; }
-			case 12: { Module12::main(info); break; }
-			default: { printa("你输入了错误指令"); break; }
+				case 0: restart = true; break;
+				case 1: Module1::main(info); break;
+				case 2: Module2::main(info); break;
+				case 3: Module3::main(info); break;
+				case 4: Module4::main(info); break;
+				case 5: Module5::main(info); break;
+				case 6: Module6::main(info); break;
+				case 7: Module7::main(info); break;
+				case 8: Module8::main(info); break;
+				case 9: Module9::main(info); break;
+				case 10: Module10::main(info); break;
+				case 11: Module11::main(info); break;
+				case 12: Module12::main(info); break;
+				default: printa("你输入了错误指令"); break;
 			}
 			if (restart) { break; }
 			system("pause");

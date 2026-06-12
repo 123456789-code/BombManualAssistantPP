@@ -70,41 +70,27 @@ public:
 		printa("其实，任意一个圈的坐标都足以确定迷宫结构");
 		printa("接下来的坐标格式均为{行}{列}，以左上角为11");
 		print("请输入一个圈的坐标: ");
-		input(temp);
-		while (true) {
-			if (temp / 10 >= 7 || temp / 10 < 1 || temp % 10 > 6 || temp % 10 == 0) {
-				print("行列均应在1到6之间，请重新输入: ");
-				input(temp);
-				continue;
+		input(temp, [&](int v) {
+			if (!(v >= 11 && v <= 66 && v % 10 >= 1 && v % 10 <= 6)) {
+				return false;
 			}
-			type = table[temp];
-			if (type == 0) {
-				print("未找到对应的迷宫，请重新输入: ");
-				input(temp);
-				continue;
+			else {
+				type = table[temp];
+				return type != 0;
 			}
-			break;
-		}
+		});
 		print("该迷宫的类型是: ", type, "，接下来将输出对应的迷宫\n");
-		printa(draw_maze(type - 1));
+		draw_maze(type - 1);
 		print("请输入起点坐标: ");
-		input(temp);
-		while (temp / 10 >= 7 || temp / 10 < 1 || temp % 10 > 6 || temp % 10 == 0) {
-			print("行列均应在1到6之间，请重新输入: ");
-			input(temp);
-		}
+		input(temp, [](int v) { return v >= 11 && v <= 66 && v % 10 >= 1 && v % 10 <= 6; });
 		pair<int, int> start = { static_cast<int>(temp / 10) - 1, static_cast<int>(temp % 10) - 1 };
 		print("请输入终点坐标: ");
-		input(temp);
-		while (temp / 10 >= 7 || temp / 10 < 1 || temp % 10 > 6 || temp % 10 == 0) {
-			print("行列均应在1到6之间，请重新输入: ");
-			input(temp);
-		}
+		input(temp, [](int v) { return v >= 11 && v <= 66 && v % 10 >= 1 && v % 10 <= 6; });
 		pair<int, int> end = { static_cast<int>(temp / 10) - 1, static_cast<int>(temp % 10) - 1 };
 		printa("计算得到的路径为");
-		printa(draw_maze(type - 1, solve(mazes[type - 1], start, end)));
+		draw_maze(type - 1, solve(mazes[type - 1], start, end));
 #ifdef _DEBUG
-		printa(output_path(solve(mazes[type - 1], start, end)));
+		output_path(solve(mazes[type - 1], start, end));
 #endif
 	}
 
@@ -171,13 +157,13 @@ private:
 	}
 
 #ifdef _DEBUG
-	static string output_path(const vector<pair<int, int>>& path) {
+	static void output_path(const vector<pair<int, int>>& path) {
 		string result = "路径为: ";
 		for (size_t i = 0; i < path.size() - 1; i++) {
 			format_to(back_inserter(result), "({}, {}) -> ", path[i].first + 1, path[i].second + 1);
 		}
 		format_to(back_inserter(result), "({}, {})\n", path.back().first + 1, path.back().second + 1);
-		return result;
+		printa(result);
 	}
 #endif
 
@@ -226,18 +212,16 @@ private:
 		return wall;
 	}
 
-	static constexpr string draw_maze(unsigned type) { // 打印迷宫本身
+	static void draw_maze(unsigned type) { // 打印迷宫本身
 		array<array<bool, 4 * size + 1>, 4 * size + 1> wall = form_maze(type);
-		string maze_str;
 		for (int i = 0; i < 4 * size + 1; i++) {
 			for (int j = 0; j < 4 * size + 1; j++) {
-				maze_str += wall[i][j] ? "██" : "  ";
+				print(wall[i][j] ? "██" : "  ");
 			}
-			maze_str += '\n';
+			printa();
 		}
-		return maze_str;
 	}
-	static constexpr string draw_maze(unsigned type, const vector<pair<int, int>>& path) { // 打印带路径的迷宫
+	static void draw_maze(unsigned type, const vector<pair<int, int>>& path) { // 打印带路径的迷宫
 		array<array<bool, 4 * size + 1>, 4 * size + 1> wall = form_maze(type);
 		array<array<bool, 4 * size + 1>, 4 * size + 1> star;
 		// 初始star
@@ -276,13 +260,11 @@ private:
 				}
 			}
 		}
-		string maze_str;
 		for (int i = 0; i < 4 * size + 1; i++) {
 			for (int j = 0; j < 4 * size + 1; j++) {
-				maze_str += wall[i][j] ? "██" : (star[i][j] ? "▓▓" : "  ");
+				print(wall[i][j] ? "██" : (star[i][j] ? "▓▓" : "  "));
 			}
-			maze_str += '\n';
+			printa();
 		}
-		return maze_str;
 	}
 };

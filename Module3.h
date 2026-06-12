@@ -4,7 +4,7 @@
 #include "resource.h"
 #include "mytool.h"
 
-using std::array, std::cin, std::any_of;
+using std::array, std::cin;
 using namespace mytool;
 
 class Module3 { // 键盘模块
@@ -12,15 +12,16 @@ public:
 	static void main(const BombInfo& info) {
 		printa("请输入当前键盘上的字符，编码为下表对应数字，顺序请按照正常文字阅读顺序");
 		show_image(IDB_BITMAP1);
-		array<unsigned, 4> code;
+		array<int, 4> code;
+		auto check = [](int x) { return x >= 0 && x <= 26; };
 		print("请输入左上角的字符: ");
-		input(code[0]);
+		input(code[0], check);
 		print("请输入右上角的字符: ");
-		input(code[1]);
+		input(code[1], check);
 		print("请输入左下角的字符: ");
-		input(code[2]);
+		input(code[2], check);
 		print("请输入右下角的字符: ");
-		input(code[3]);
+		input(code[3], check);
 		code = sort(code);
 		if (any_of(code.begin(), code.end(), [](int x) { return x == 0; })) {
 			printa("没找到相关的顺序，请检查输入");
@@ -48,15 +49,15 @@ private:
 		{ 14,10,25,14,13,20,4 }
 	}};
 
-	static constexpr array<unsigned, 4> sort(const array<unsigned, 4>& code) {
-		array<unsigned, 4> order = { 0,0,0,0 };
+	static constexpr array<int, 4> sort(const array<int, 4>& code) {
+		array<int, 4> order = { 0,0,0,0 };
 		int idx = 0;
 		bool flag = false;
 		for (; idx < 6; idx++) {
 			flag = false;
-			for (const unsigned& c : code) {
+			for (const int& c : code) {
 				flag = true;
-				for (const unsigned& l : table[idx]) {
+				for (const int& l : table[idx]) {
 					if (c == l) {
 						flag = false;
 						break;

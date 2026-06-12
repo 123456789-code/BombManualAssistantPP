@@ -15,7 +15,7 @@ public:
 		while (true) {
 			print("请输入编码: ");
 			input(code);
-			if (code.length() != 4) { break; }
+			if (code.length() != 4 || code.find_first_not_of("01") != string::npos) { break; }
 			// 直接查表
 			bitset<4> bits(code);
 			switch (table[static_cast<uint8_t>(bits.to_ulong())]) {
